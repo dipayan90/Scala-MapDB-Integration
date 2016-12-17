@@ -14,6 +14,7 @@ testFrameworks += new TestFramework("com.fortysevendeg.lambdatest.sbtinterface.L
 
 libraryDependencies ++= Seq(
   "org.mapdb" % "mapdb" % "3.0.2",
+  "com.github.karasiq" %% "mapdbutils" % "1.1.1",
   "com.fortysevendeg" % "lambda-test_2.11" % "1.1.2" % "test"
 )
 
