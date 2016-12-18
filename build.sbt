@@ -14,7 +14,7 @@ testFrameworks += new TestFramework("com.fortysevendeg.lambdatest.sbtinterface.L
 
 libraryDependencies ++= Seq(
   "org.mapdb" % "mapdb" % "3.0.2",
-  "org.scala-lang" % "scala-reflect" % "2.11.8",
+  "org.scala-lang" % "scala-reflect" % scalaVersion.value,
   "com.fortysevendeg" % "lambda-test_2.11" % "1.1.2" % "test"
 )
 

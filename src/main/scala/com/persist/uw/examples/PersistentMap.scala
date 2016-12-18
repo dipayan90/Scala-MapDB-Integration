@@ -11,7 +11,13 @@ import org.mapdb._
 // TODO Your code for persistent map should go here.
 class PersistentMap[K,V](implicit keyTag:TypeTag[K],valueTag:TypeTag[V]) extends mutable.Map[K,V] {
 
-  val db = DBMaker.memoryDB().make()
+  val db = DBMaker
+          .fileDB("file.db")
+          .fileLockDisable()
+          .checksumHeaderBypass()
+          .closeOnJvmShutdown()
+          .make()
+
   val map: HTreeMap[K,V] = (keyTag.tpe,valueTag.tpe) match {
     case (x,y) if x =:= typeOf[String] && y =:= typeOf[String] => db.hashMap[String,String]("stringStringHashMap",Serializer.STRING,Serializer.STRING).make().asInstanceOf[HTreeMap[K,V]]
     case (x,y) if x =:= typeOf[String] && y =:= typeOf[Int] => db.hashMap("stringIntegerHashMap",Serializer.STRING,Serializer.INTEGER).make().asInstanceOf[HTreeMap[K,V]]

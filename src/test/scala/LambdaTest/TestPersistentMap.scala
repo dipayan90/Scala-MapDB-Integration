@@ -38,7 +38,7 @@ class TestPersistentMap extends LambdaTest {
       map.put("five",5)
       assertEq(4,map.get("four").getOrElse(0),"got object from the map, removing object now")
       map.remove("four")
-      assert(!map.contains("four"),"object doesn't exist anymore")
+      assert(!map.contains("four"),"key in hash-map doesn't exist anymore")
     } +
     test("persists input and then provides iterator to iterate over the entryset") {
       val map = new PersistentMap[String,Int]
