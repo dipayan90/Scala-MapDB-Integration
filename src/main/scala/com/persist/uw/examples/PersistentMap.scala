@@ -14,6 +14,7 @@ class PersistentMap[K,V](implicit keyTag:TypeTag[K],valueTag:TypeTag[V]) extends
   val db = DBMaker
           .fileDB("file.db")
           .fileLockDisable()
+          .transactionEnable()
           .checksumHeaderBypass()
           .closeOnJvmShutdown()
           .make()
@@ -27,11 +28,13 @@ class PersistentMap[K,V](implicit keyTag:TypeTag[K],valueTag:TypeTag[V]) extends
 
   override def +=(kv: (K, V)): this.type = {
     map.put(kv._1,kv._2)
+    db.commit()
     this
   }
 
   override def -=(key: K): this.type = {
     map.remove(key)
+    db.commit()
     this
   }
 
